@@ -1,14 +1,16 @@
-var grpc = require('grpc');
+const grpc = require('grpc')
 
-let host = '0.0.0.0:50051'
+const host = '0.0.0.0:50051'
+const client = ''
 
-var booksProto = grpc.load('books.proto');
-var books = [
+const booksProto = grpc.load('books.proto')
+const books = [
     { id: 123, title: 'A Tale of Two Cities', author: 'Charles Dickens' }
-];
+]
 
-var server = new grpc.Server();
-var bookStream;
+const server = new grpc.Server()
+let bookStream
+
 server.addProtoService(booksProto.books.BookService.service, {
     list: function (call, callback) {
         callback(null, books);
@@ -46,5 +48,6 @@ server.addProtoService(booksProto.books.BookService.service, {
     }
 });
 
-server.bind(host, grpc.ServerCredentials.createInsecure());
-server.start();
+server.bind(host, grpc.ServerCredentials.createInsecure())
+server.start()
+console.log('service1: grpc server running on port:', host);

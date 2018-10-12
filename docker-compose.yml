@@ -1,13 +1,22 @@
 version: "3"
 services:
   ## API
+  # Gateway
+  gateway:
+    build:
+      context: ./gateway/app/
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    volumes:
+      - "./gateway/app:/src/app"
   # Node
   service1:
     build:
       context: ./service1/app/
       dockerfile: Dockerfile
     ports:
-      - "3001:3000"
+      - "50051:50051"
     volumes:
       - "./service1/app:/src/app"
       # - ./package.json:/src/package.json

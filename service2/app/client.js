@@ -1,8 +1,8 @@
 var grpc = require('grpc');
-var booksProto = grpc.load('books.proto');
-let host = '0.0.0.0:50051'
 
-var client = new booksProto.books.BookService(host, grpc.credentials.createInsecure());
+var booksProto = grpc.load('books.proto');
+
+var client = new booksProto.books.BookService('0.0.0.0:50051', grpc.credentials.createInsecure());
 
 function printResponse(error, response) {
     if (error)

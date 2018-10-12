@@ -1,4 +1,4 @@
-FROM node:8.12
+FROM node:latest
 
 RUN mkdir -p /src/app
 
@@ -10,6 +10,6 @@ RUN npm install
 
 ADD nodemon.json /src/app/nodemon.json
 
-EXPOSE 50051
+EXPOSE 3000
 
 CMD npm start
