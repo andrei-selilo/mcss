@@ -1,0 +1,54 @@
+version: "3"
+services:
+  ## API
+  # Node
+  service1:
+    build:
+      context: ./service1/app/
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    volumes:
+      - "./service1/app:/src/app"
+      # - ./package.json:/src/package.json
+      # - ./package-lock.json:/src/package-lock.json
+      # - notused:/src/node_modules
+    depends_on:
+      - "db1"
+
+  # service2:
+  #   build:
+        # context: ./service2/app/
+        # dockerfile: Dockerfile
+  #   ports:
+  #     - "3002:3000"
+  #   volumes:
+  #     - "./service2/app:/src/app"
+  #   depends_on:
+  #     - "db2"
+
+  ## DB
+  db1:
+    image: mongo:latest
+    container_name: "mongo1"
+    environment:
+      - MONGO_DATA_DIR=/src/data/db
+      - MONGO_LOG_DIR=/src/dev/null
+    volumes:
+      - ./service1/data/db:/src/data/db
+    ports:
+      - 27021:27017
+    command: mongod --smallfiles --logpath=/src/dev/null # --quiet
+  # db2:
+  #   image: mongo:latest
+  #   container_name: "mongo2"
+  #   environment:
+  #     - MONGO_DATA_DIR=/data/db
+  #     - MONGO_LOG_DIR=/dev/null
+  #   volumes:
+  #     - ./service2/data/db:/data/db
+  #   ports:
+  #     - 27022:27017
+  #   command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+# volumes:
