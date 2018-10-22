@@ -5,6 +5,7 @@ var booksProto = grpc.load('books.proto');
 var client = new booksProto.books.BookService('0.0.0.0:50051', grpc.credentials.createInsecure());
 
 function printResponse(error, response) {
+    console.log(booksProto)
     if (error)
         console.log('Error: ', error);
     else
@@ -23,7 +24,7 @@ function insertBook(id, title, author) {
         title: title,
         author: author
     };
-    client.insert(book, function(error, empty) {
+    client.insert(book, function (error, empty) {
         printResponse(error, empty);
     });
 }
@@ -31,7 +32,7 @@ function insertBook(id, title, author) {
 function getBook(id) {
     client.get({
         id: parseInt(id)
-    }, function(error, book) {
+    }, function (error, book) {
         printResponse(error, book);
     });
 }
@@ -39,14 +40,14 @@ function getBook(id) {
 function deleteBook(id) {
     client.delete({
         id: parseInt(id)
-    }, function(error, empty) {
+    }, function (error, empty) {
         printResponse(error, empty);
     });
 }
 
 function watchBooks() {
     var call = client.watch({});
-    call.on('data', function(book) {
+    call.on('data', function (book) {
         console.log(book);
     });
 }

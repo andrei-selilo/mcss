@@ -22,13 +22,13 @@ services:
       # - ./package.json:/src/package.json
       # - ./package-lock.json:/src/package-lock.json
       # - notused:/src/node_modules
-    depends_on:
-      - "db1"
+    # depends_on:
+    #   - "db1"
 
   # service2:
   #   build:
-        # context: ./service2/app/
-        # dockerfile: Dockerfile
+  #       context: ./service2/app/
+  #       dockerfile: Dockerfile
   #   ports:
   #     - "3002:3000"
   #   volumes:
@@ -37,17 +37,17 @@ services:
   #     - "db2"
 
   ## DB
-  db1:
-    image: mongo:latest
-    container_name: "mongo1"
-    environment:
-      - MONGO_DATA_DIR=/src/data/db
-      - MONGO_LOG_DIR=/src/dev/null
-    volumes:
-      - ./service1/data/db:/src/data/db
-    ports:
-      - 27021:27017
-    command: mongod --smallfiles --logpath=/src/dev/null # --quiet
+  # db1:
+  #   image: mongo:latest
+  #   container_name: "mongo1"
+  #   environment:
+  #     - MONGO_DATA_DIR=/src/data/db
+  #     - MONGO_LOG_DIR=/src/dev/null
+  #   volumes:
+  #     - ./service1/data/db:/src/data/db
+  #   ports:
+  #     - 27021:27017
+  #   command: mongod --smallfiles --logpath=/src/dev/null # --quiet
   # db2:
   #   image: mongo:latest
   #   container_name: "mongo2"
@@ -61,3 +61,11 @@ services:
   #   command: mongod --smallfiles --logpath=/dev/null # --quiet
 
 # volumes:
+
+# networks:
+#   services:
+#     # Use a custom driver which takes special options
+#     driver: custom-driver-2
+#     driver_opts:
+#       foo: "1"
+#       bar: "2"
