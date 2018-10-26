@@ -10,6 +10,8 @@ services:
       - "3001:3000"
     volumes:
       - "./gateway/app:/src/app"
+    links:
+      - "service1"
   # Node
   service1:
     build:

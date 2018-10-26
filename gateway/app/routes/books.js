@@ -1,23 +1,27 @@
 const express = require('express')
 const router = express.Router()
 const grpc = require('grpc')
-// const protoLoader = require('@grpc/proto-loader')
+const protoLoader = require('@grpc/proto-loader')
 
-const booksProto = grpc.load('routes/books.proto')
-const grpcHost = '0.0.0.0:50051'
-const client = new booksProto.books.BookService(grpcHost, grpc.credentials.createInsecure())
+const protoFileName = 'routes/books.proto'
+const grpcHost = 'service1:50051'
+
+const protoOptions = { keepCase: true, longs: String, enums: String, defaults: true, oneofs: true }
+const packageDefinition = protoLoader.loadSync(protoFileName, protoOptions)
+const packageObject = grpc.loadPackageDefinition(packageDefinition)
+
+// const booksProto = grpc.load(protoFileName)
+
+const client = new packageObject.books.BookService(grpcHost, grpc.credentials.createInsecure())
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-  res.send('Books page');
+  res.json('Books page')
 });
 
 router.get('/list', async function (req, res, next) {
-  res.send({
-    booksProto,
-    load: grpc.load,
-    books: await listBooks()
-  })
+  const books = await listBooks()
+  res.json(books)
 });
 
 async function listBooks() {
