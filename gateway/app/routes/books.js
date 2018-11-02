@@ -10,8 +10,6 @@ const protoOptions = { keepCase: true, longs: String, enums: String, defaults: t
 const packageDefinition = protoLoader.loadSync(protoFileName, protoOptions)
 const packageObject = grpc.loadPackageDefinition(packageDefinition)
 
-// const booksProto = grpc.load(protoFileName)
-
 const client = new packageObject.books.BookService(grpcHost, grpc.credentials.createInsecure())
 
 /* GET users listing. */

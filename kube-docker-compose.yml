@@ -4,20 +4,18 @@ services:
   ## API
   # Gateway
   gateway:
-    build:
-      context: ./gateway/app/
-      dockerfile: Dockerfile
+    image: mcss_gateway
     ports:
       - "3001:3000"
     volumes:
       - "./gateway/app:/src/app"
-    links:
-      - "service1"
+    deploy:
+      replicas: 1
+    # links:
+    #   - "service1"
   # Node
   service1:
-    build:
-      context: ./service1/app/
-      dockerfile: Dockerfile
+    image: mcss_service1
     ports:
       - "50051:50051"
     volumes:
