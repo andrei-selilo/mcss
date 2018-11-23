@@ -1,2 +1,29 @@
-.DS_Store
+# Dependency directory
 **/node_modules/
+bower_components
+
+# API keys and secrets
+.env
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea
+*.iml
+
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+pids
+logs
+results
+tmp

@@ -8,7 +8,7 @@ WORKDIR /src/app
 ADD package.json /src/app/package.json
 RUN npm install
 
-ADD nodemon.json /src/app/nodemon.json
+# ADD nodemon.json /src/app/nodemon.json
 
 EXPOSE 3000
 

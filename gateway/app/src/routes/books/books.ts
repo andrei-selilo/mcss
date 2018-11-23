@@ -1,7 +1,8 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const grpc = require('grpc')
-const protoLoader = require('@grpc/proto-loader')
+
+import grpc from 'grpc'
+import protoLoader from '@grpc/proto-loader'
 
 const protoFileName = 'routes/books.proto'
 const grpcHost = 'service1:50051'
@@ -30,4 +31,4 @@ async function listBooks() {
   })
 }
 
-module.exports = router
+export default router
