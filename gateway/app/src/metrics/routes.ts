@@ -12,6 +12,13 @@ export const ROUTES = {
     POST: '/',
     PUT: '/'
   },
+  BOOKS: {
+    ROOT: '/books',
+    GET: '/',
+    GET_ONE: '/:id',
+    POST: '/',
+    PUT: '/:id',
+  },
   AUTH: {
     ROOT: '/auth',
     CREATE_SESSION: '/session',

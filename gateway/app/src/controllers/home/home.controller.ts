@@ -1,6 +1,6 @@
 // import boom from 'boom'
 // import { ObjectID } from 'mongodb'
-import { ERROR } from '../../metrics/error'
+import { ERRORS } from '../../metrics/error'
 import { Auth0Service } from '../../services'
 
 class Controllers {

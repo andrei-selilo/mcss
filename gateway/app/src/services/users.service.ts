@@ -1,6 +1,6 @@
 // import boom from 'boom'
 import { USER } from '../metrics/user'
-import { ERROR } from '../metrics/error'
+import { ERRORS } from '../metrics/error'
 import { UserModel } from '../models/user'
 
 class Service {

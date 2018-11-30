@@ -2,7 +2,7 @@ import * as express from 'express'
 
 import { ROUTES } from '../../metrics/routes'
 // import { Authorizer } from '../../middleware/authorizer'
-import { HomeController } from '../../controllers/home'
+import { BooksController } from '../../controllers/books'
 
 const router = express.Router()
 
@@ -24,6 +24,6 @@ const router = express.Router()
  *
  * @apiError (Unauthorized 401)  Unauthorized Permission limitation
  */
-router.route(ROUTES.HOME.GET).get(HomeController.get) //Authorizer.checkAdminPermissions
+router.route(ROUTES.BOOKS.GET).get(BooksController.get) //Authorizer.checkAdminPermissions
 
-export const HomeRoutes = router
+export const BooksRoutes = router

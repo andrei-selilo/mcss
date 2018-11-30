@@ -1,5 +1,5 @@
 // import boom from 'boom';
-import { ERROR } from '../metrics/error'
+import { ERRORS } from '../metrics/error'
 import { USER } from '../metrics/user'
 import { UserModel } from '../models/user'
 import { SessionService } from '../services/session.service'

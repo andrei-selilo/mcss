@@ -1,4 +1,4 @@
-export const ERROR = {
+export const ERRORS = {
   EMAIL_REQUIRED: 'error.email.required',
   NAME_REQUIRED: 'error.name.required',
   UNSUPPORTED_PARAMS: 'error.unsupported.params',
