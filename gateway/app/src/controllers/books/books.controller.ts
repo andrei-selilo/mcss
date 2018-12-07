@@ -2,6 +2,7 @@
 // import { Auth0Service } from '../../services'
 // import { UserModel } from '../../models/user.model'
 import { ERRORS } from '../../metrics/error'
+import { promisify } from 'util'
 // import { BooksService } from '../../services'
 
 import grpc from 'grpc'
@@ -12,8 +13,6 @@ import { BookServiceClient, BookServiceService } from '../../protos/books/books_
 import { BookIdRequest, Book, BookList, Empty } from '../../protos/books/books_pb'
 
 // const protoFileName = '../../protos/books.proto'
-const grpcHost = 'service1:50051'
-const client = new BookServiceClient(grpcHost, grpc.credentials.createInsecure());
 
 // const protoOptions = { keepCase: true, longs: String, enums: String, defaults: true, oneofs: true }
 // const packageDefinition = protoLoader.loadSync(protoFileName, protoOptions)
@@ -25,20 +24,27 @@ const client = new BookServiceClient(grpcHost, grpc.credentials.createInsecure()
 //   callback({ a: 'this is not a client, suka'})
 // })
 
-
 class Controllers {
+
+  private static clientHost: string = 'service1:50051'
+  private static client: BookServiceClient = new BookServiceClient(Controllers.clientHost, grpc.credentials.createInsecure())
+
   static async create(req, res, next) {
 
   }
 
   static async get(req, res, next) {
     const request = new Empty()
-    const list = await new Promise((resolve, reject) => {
-      client.list(request, function (error, books) {
-        return resolve({ error, books })
-      })
+
+    const result = await new Promise<{ error?: any, response?: any }>((resolve, reject) => {
+      Controllers.client.list(request, (error, response) => resolve({ error, response }))
     })
-    res.json(list)
+    const bookList: BookList = result.response
+
+    // const promise = promisify<Empty, BookList>(Controllers.client.list)
+    // const result = await promise(request)
+
+    res.json(bookList.toObject())
   }
 
   static async getById(req, res, next) {
