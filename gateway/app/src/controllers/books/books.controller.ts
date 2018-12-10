@@ -26,8 +26,9 @@ import { BookIdRequest, Book, BookList, Empty } from '../../protos/books/books_p
 
 class Controllers {
 
-  private static clientHost: string = 'service1:50051'
-  private static client: BookServiceClient = new BookServiceClient(Controllers.clientHost, grpc.credentials.createInsecure())
+  private static clients: BookServiceClient[] = [
+    new BookServiceClient('service1:50051', grpc.credentials.createInsecure())
+  ]
 
   static async create(req, res, next) {
 
@@ -37,7 +38,7 @@ class Controllers {
     const request = new Empty()
 
     const result = await new Promise<{ error?: any, response?: any }>((resolve, reject) => {
-      Controllers.client.list(request, (error, response) => resolve({ error, response }))
+      Controllers.clients[0].list(request, (error, response) => resolve({ error, response }))
     })
     const bookList: BookList = result.response
 
